@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TGA Anlagenerfassung</title>
+  <meta name="description" content="Offline-Erfassung technischer Anlagen für den CAFM-Import">
+  <meta name="theme-color" content="#1F4E79">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Anlagen">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="top">
+    <button id="back" class="icon-btn" aria-label="Zurück" hidden>‹</button>
+    <h1 id="title">Anlagen</h1>
+    <span id="savestate" aria-live="polite"></span>
+  </header>
+
+  <main id="main"><p class="empty">Wird geladen …</p></main>
+
+  <nav id="nav">
+    <a href="#/liste" data-nav="liste">Anlagen</a>
+    <a href="#/check" data-nav="check">Checkliste</a>
+    <a href="#/unterlagen" data-nav="unterlagen">Unterlagen</a>
+    <a href="#/export" data-nav="export">Export</a>
+  </nav>
+
+  <div id="modal" class="modal" hidden></div>
+  <div id="toast" class="toast" hidden></div>
+
+  <noscript>Bitte JavaScript aktivieren.</noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
