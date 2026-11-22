@@ -50,7 +50,7 @@ body {
 #nav a {
   flex: 1; text-align: center; padding: 0 4px; height: var(--nav-h);
   display: flex; align-items: center; justify-content: center;
-  color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600;
+  color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600;
   border-top: 3px solid transparent;
 }
 #nav a.active { color: var(--blue); border-top-color: var(--blue); }
@@ -225,3 +225,54 @@ details.help .btn { margin: 4px 10px 10px; }
 .tipp { margin: 0 12px 10px; padding: 10px 12px; background: #FFF8E1; border: 1px solid #F0DFA6; border-radius: 8px; font-size: 14px; line-height: 1.4; }
 .small-link { display: inline-block; margin-top: 8px; font-size: 14px; color: var(--blue); font-weight: 600; }
 .small-link[hidden] { display: none; }
+
+/* Liegenschaften und Gebäude */
+.ctx { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: var(--radius); padding: 10px 12px; margin-bottom: 12px; }
+.ctx-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.ctx-grid.one { grid-template-columns: minmax(0, 1fr); }
+.ctx .lbl { margin-bottom: 2px; }
+.ctx select { min-height: 40px; padding: 8px; font-size: 15px; }
+.ctx .small-link { margin-top: 6px; font-size: 13px; }
+.ctx .btn { margin-left: 6px; }
+.obj-grid { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 8px; }
+.geb-row { display: grid; grid-template-columns: 6.5em minmax(0, 1fr) 40px; gap: 6px 8px; align-items: center; margin-top: 6px; }
+.geb-row .geb-cnt { grid-column: 2 / 4; margin: 0; }
+.icon-del { width: 40px; height: 40px; border: 1px solid #B8C2CC; background: #fff; border-radius: 8px; font-size: 22px; color: var(--red); cursor: pointer; }
+.toolbar select { min-height: 40px; padding: 8px; font-size: 15px; }
+
+/* Begehung / Mängel */
+.badge.green { background: #E8F5E9; color: var(--green); }
+.item.mangel { border-left-color: #6B7680; }
+.item.mangel.prio-sofort { border-left-color: var(--red); }
+.item.mangel.prio-kurzfristig { border-left-color: #D9A400; }
+.item.mangel.prio-mittelfristig { border-left-color: var(--blue); }
+.item.mangel.done { opacity: .65; border-left-color: var(--green); }
+.pill.on[data-val="sofort"] { background: var(--red); border-color: var(--red); }
+.pill.on[data-val="kurzfristig"] { background: #B8860B; border-color: #B8860B; }
+.pill.on[data-val="erledigt"] { background: var(--green); border-color: var(--green); }
+
+/* Begehungsbericht */
+.report { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; font-size: 14px; line-height: 1.4; }
+.report h1 { font-size: 22px; margin: 0 0 12px; color: var(--blue); }
+.report h2 { font-size: 16px; margin: 20px 0 8px; color: var(--blue); border-bottom: 2px solid var(--blue); padding-bottom: 4px; }
+.report h3 { font-size: 15px; margin: 0 0 6px; }
+.report table { width: 100%; border-collapse: collapse; }
+.rep-head th { text-align: left; width: 30%; color: var(--muted); font-weight: 600; padding: 3px 8px 3px 0; vertical-align: top; }
+.rep-head td { padding: 3px 0; vertical-align: top; white-space: pre-wrap; }
+.rep-table th, .rep-table td { border: 1px solid var(--line); padding: 4px 6px; text-align: left; vertical-align: top; font-size: 13px; }
+.rep-table th { background: var(--blue-l); }
+.rep-item { border-top: 1px solid var(--line); padding: 12px 0; }
+.rep-photos { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin-top: 8px; }
+.rep-photos figure { margin: 0; }
+.rep-photos img { width: 100%; height: auto; border-radius: 4px; display: block; }
+.rep-photos figcaption { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+@media print {
+  #top, #nav, .no-print, .fabs, .toast, .modal { display: none !important; }
+  body { background: #fff; padding: 0; }
+  main { padding: 0; max-width: none; }
+  .report { border: 0; padding: 0; font-size: 11pt; }
+  .rep-item { break-inside: avoid; page-break-inside: avoid; }
+  .rep-table tr { break-inside: avoid; }
+  .report h2 { break-after: avoid; }
+}

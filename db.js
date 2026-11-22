@@ -1,6 +1,6 @@
 // Lokale Datenhaltung im Browser (IndexedDB). Es werden keine Daten an einen Server gesendet.
 const DB_NAME = 'tga-anlagenerfassung';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 let dbPromise;
 
 function open() {
@@ -15,6 +15,7 @@ function open() {
           f.createIndex('uid', 'uid');
         }
         if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta', { keyPath: 'key' });
+        if (!db.objectStoreNames.contains('maengel')) db.createObjectStore('maengel', { keyPath: 'uid' });
       };
       r.onsuccess = () => resolve(r.result);
       r.onerror = () => reject(r.error);

@@ -1,6 +1,6 @@
 // Service Worker: hält die App offline verfügbar.
 // Nach jeder Änderung an den App-Dateien die Versionsnummer erhöhen.
-const CACHE = 'tga-anlagen-v1.2.0';
+const CACHE = 'tga-anlagen-v1.4.0';
 const FILES = [
   './',
   './index.html',

@@ -16,6 +16,9 @@ mit denselben Spalten wie die Erfassungsvorlage (Blatt „Anlagen“, importfäh
   Beispielbilder) und je Bereich ein Rundgang-Tipp
 - „Was ist das?“: Foto eines unbekannten Teils an Google Lens übergeben; Button „Unbekanntes Teil“ in der Liste
 - „Hersteller + Typ im Netz suchen“ für Datenblätter und Anleitungen
+- Reiter „Begehung“: Mängel/Missstände mit Vorlagen, Priorität, Maßnahme, Frist, Status und Fotos dokumentieren; Begehungsbericht als PDF
+- Fotobeschreibung je Foto; Foto einzeln herunterladen oder teilen, wahlweise mit Text im Bild; Fotoliste im ZIP-Export
+- Mehrere Liegenschaften und Gebäude: anlegen mit „+“, oben auswählen; Checkliste je Gebäude, Unterlagen je Liegenschaft, Export je Objekt
 - Unterlagen mit Erklärung: was drinsteht, wo man es findet, wie man es nachholt; Markierung „vor der Begehung“
 - Export: Excel (.xlsx), CSV, Fotos als ZIP
 - Datensicherung und Wiederherstellung (auch für den Umzug auf ein anderes Gerät)
