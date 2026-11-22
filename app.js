@@ -3,7 +3,7 @@ import * as db from './db.js';
 import { makeZip, readZip } from './zip.js';
 import { buildXlsx, readXlsxSheet, STYLE, serialToIso } from './xlsx.js';
 
-const APP_VERSION = '1.1.1';
+const APP_VERSION = '1.2.0';
 const COL = Object.fromEntries(COLUMNS.map((c) => [c.key, c]));
 const OPTIONS = { jnk: JNK, doku: DOKU, zustand: ZUSTAND };
 const SECTIONS = [
@@ -912,21 +912,36 @@ function saveUnterl() {
   ulSaveTimer = setTimeout(() => { db.setMeta('unterlagen', S.unterl); markChanged(); }, 300);
 }
 
+function ulItemHtml(u, i) {
+  const st = S.unterl[u.unterlage] || {};
+  return `<div class="ck" data-ul="${i}"><div class="ck-t">${h(u.unterlage)}</div>
+    <div class="ck-m">Wofür: ${h(u.wofuer)}</div>
+    <details class="help"><summary>Was ist das? Wo finde ich es?</summary>
+      <p><b>Was ist das / was steht drin:</b> ${h(u.was)}</p>
+      <p><b>Wo finde ich es:</b> ${h(u.wo)}</p>
+      <p><b>Wenn es fehlt:</b> ${h(u.fehlt)}</p>
+    </details>
+    <div class="ck-row"><span class="lbl">Liegt vor:</span><div class="pills">${LIEGT_VOR.map((o) => `<button type="button" class="pill${st.liegtVor === o ? ' on' : ''}" data-val="${h(o)}">${h(o)}</button>`).join('')}</div></div>
+    <div class="ck-note"><input type="text" data-ulnote value="${h(st.bemerkung || '')}" placeholder="Bemerkung" autocomplete="off"></div></div>`;
+}
+
 function renderUnterlagen() {
   setTitle('Unterlagen');
+  const items = UNTERLAGEN.map((u, i) => ({ u, i }));
   const kats = [...new Set(UNTERLAGEN.map((u) => u.kat))];
   const count = () => UNTERLAGEN.filter((u) => S.unterl[u.unterlage]?.liegtVor === 'ja').length;
+  const vorher = items.filter(({ u }) => u.vorher);
   main().innerHTML = `<div class="card"><div class="kv"><span>Liegt vor</span><b id="ultotal"></b></div>
       <div class="progress"><div id="ulbar"></div></div>
-      <p class="hint">Vor der Begehung sammeln. „teilweise“ = z. B. nur einzelne Prüfberichte.</p></div>`
-    + kats.map((k) => `<details class="group" open><summary>${h(k)}</summary>`
-      + UNTERLAGEN.map((u, i) => ({ u, i })).filter(({ u }) => u.kat === k).map(({ u, i }) => {
-        const st = S.unterl[u.unterlage] || {};
-        return `<div class="ck" data-ul="${i}"><div class="ck-t">${h(u.unterlage)}</div>
-          <div class="ck-h">Wofür: ${h(u.wofuer)}</div><div class="ck-m">Quelle: ${h(u.quelle)}</div>
-          <div class="ck-row"><div class="pills">${LIEGT_VOR.map((o) => `<button type="button" class="pill${st.liegtVor === o ? ' on' : ''}" data-val="${h(o)}">${h(o)}</button>`).join('')}</div></div>
-          <div class="ck-note"><input type="text" data-ulnote value="${h(st.bemerkung || '')}" placeholder="Bemerkung" autocomplete="off"></div></div>`;
-      }).join('') + '</details>').join('');
+      <p class="hint">Zuerst die ${vorher.length} Unterlagen „vor der Begehung“ beschaffen, der Rest kann später kommen. Unter „Was ist das? Wo finde ich es?“ steht, was drin ist, wo du es findest und was du tust, wenn es fehlt. Zuständige Ämter können je Gemeinde abweichen.</p></div>`
+    + `<details class="group" open><summary>Vor der Begehung beschaffen<span class="cnt">${vorher.length}</span></summary>`
+    + vorher.map(({ u, i }) => ulItemHtml(u, i)).join('') + '</details>'
+    + kats.map((k) => {
+      const rest = items.filter(({ u }) => u.kat === k && !u.vorher);
+      if (!rest.length) return '';
+      return `<details class="group"><summary>${h(k)}<span class="cnt">${rest.length}</span></summary>`
+        + rest.map(({ u, i }) => ulItemHtml(u, i)).join('') + '</details>';
+    }).join('');
   const upd = () => {
     const n = count();
     $('#ultotal').textContent = `${n} / ${UNTERLAGEN.length}`;
@@ -945,6 +960,7 @@ function renderUnterlagen() {
     const pill = e.target.closest('.pill');
     if (!pill) return;
     const st = loc(pill);
+    if (!st) return;
     st.liegtVor = st.liegtVor === pill.dataset.val ? '' : pill.dataset.val;
     pill.parentElement.querySelectorAll('.pill').forEach((p) => p.classList.toggle('on', p.dataset.val === st.liegtVor));
     saveUnterl();
@@ -1032,10 +1048,10 @@ async function exportXlsx() {
       {
         name: 'Unterlagen',
         bodyStyle: STYLE.WRAP,
-        columns: cols([['Nr.', 5], ['Kategorie', 22], ['Unterlage', 52], ['Wofür', 48], ['Typische Quelle', 26], ['Liegt vor', 11], ['Bemerkung', 30]]),
+        columns: cols([['Nr.', 5], ['Kategorie', 22], ['Unterlage', 46], ['Wann beschaffen', 16], ['Wofür', 40], ['Wenn es fehlt', 50], ['Liegt vor', 11], ['Bemerkung', 30]]),
         rows: UNTERLAGEN.map((u, i) => {
           const st = S.unterl[u.unterlage] || {};
-          return [i + 1, u.kat, u.unterlage, u.wofuer, u.quelle, st.liegtVor || null, st.bemerkung || null];
+          return [i + 1, u.kat, u.unterlage, u.vorher ? 'vor der Begehung' : 'später', u.wofuer, u.fehlt, st.liegtVor || null, st.bemerkung || null];
         }),
       },
     ]);

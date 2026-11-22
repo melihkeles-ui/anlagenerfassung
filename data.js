@@ -1714,187 +1714,311 @@ export const UNTERLAGEN = [
   "kat": "Baurecht & Brandschutz",
   "unterlage": "Baugenehmigung inkl. Nebenbestimmungen / Auflagen",
   "wofuer": "Prüfpflichten sicherheitstechnischer Anlagen (in BW v. a. aus Genehmigung, Brandschutzkonzept, Sonderbauvorschriften)",
-  "quelle": "Eigentümer / Baurechtsamt"
+  "quelle": "Eigentümer / Baurechtsamt",
+  "was": "Bescheid der Baurechtsbehörde, dass das Gebäude so gebaut und genutzt werden darf. Wichtig sind die Nebenbestimmungen (Auflagen): Dort steht z. B., welche technischen Anlagen regelmäßig von Sachverständigen geprüft werden müssen.",
+  "wo": "Beim Eigentümer oder der Hausverwaltung, oft im Ordner „Bauakte“; auch beim Architekten bzw. Bauherrn.",
+  "fehlt": "Beim Baurechtsamt der Gemeinde bzw. beim Landratsamt (untere Baurechtsbehörde) Akteneinsicht oder Kopien aus der Bauakte beantragen. Als Dienstleister brauchst du in der Regel eine Vollmacht des Eigentümers; es können Gebühren anfallen.",
+  "vorher": true
  },
  {
   "kat": "Baurecht & Brandschutz",
   "unterlage": "Brandschutzkonzept / Brandschutznachweis",
   "wofuer": "Welche Brandschutzanlagen gefordert sind",
-  "quelle": "Eigentümer / Planer"
+  "quelle": "Eigentümer / Planer",
+  "was": "Beschreibt, wie das Gebäude den Brandschutz erfüllt: Brandabschnitte, Rettungswege und welche Anlagen gefordert sind (z. B. Brandmeldeanlage, Rauchabzug, Sicherheitsbeleuchtung), oft mit Plänen.",
+  "wo": "Teil der Baugenehmigung bzw. Bauakte; beim Eigentümer oder beim Brandschutzplaner.",
+  "fehlt": "Zusammen mit der Bauakte beim Baurechtsamt anfragen oder beim damaligen Brandschutzplaner bzw. Architekten. Gibt es bei älteren Gebäuden keins, kann ein Brandschutzsachverständiger den Bestand bewerten.",
+  "vorher": true
  },
  {
   "kat": "Baurecht & Brandschutz",
   "unterlage": "Prüfberichte Sachverständige (Erstprüfung + letzte Wiederholungsprüfung)",
   "wofuer": "Anlagenbestand, Fristen, offene Mängel",
-  "quelle": "Vorbetreiber / Verwaltung"
+  "quelle": "Vorbetreiber / Verwaltung",
+  "was": "Berichte über Prüfungen sicherheitstechnischer Anlagen durch Sachverständige, z. B. Brandmeldeanlage, Rauchabzug, Sprinkler, Lüftung oder Aufzug. Enthalten Anlagenumfang, Prüfdatum, Mängel und den nächsten Termin.",
+  "wo": "Hausverwaltung, Vorbetreiber oder abgeheftet im Prüfbuch an der Anlage.",
+  "fehlt": "Bei der Prüforganisation bzw. dem Sachverständigen eine Kopie anfordern. Den Namen findest du oft auf der Prüfplakette an der Anlage.",
+  "vorher": true
  },
  {
   "kat": "Baurecht & Brandschutz",
   "unterlage": "Feuerwehrpläne (DIN 14095), Flucht- und Rettungspläne",
   "wofuer": "Lage von Brandschutzeinrichtungen",
-  "quelle": "Verwaltung / Brandschutzbeauftragter"
+  "quelle": "Verwaltung / Brandschutzbeauftragter",
+  "was": "Feuerwehrpläne: Übersichtspläne für die Feuerwehr mit Zugängen, Löscheinrichtungen und Absperrstellen. Flucht- und Rettungspläne: Aushänge in den Fluren mit Fluchtwegen, Feuerlöschern und Sammelplatz.",
+  "wo": "Feuerwehrpläne meist bei der Brandmelderzentrale bzw. im Feuerwehr-Infodepot; Fluchtpläne hängen in den Fluren (abfotografieren).",
+  "fehlt": "Beim Brandschutzbeauftragten, bei der Hausverwaltung oder bei dem Büro, das sie erstellt hat. Eine Ausfertigung der Feuerwehrpläne hat in der Regel auch die örtliche Feuerwehr.",
+  "vorher": false
  },
  {
   "kat": "Baurecht & Brandschutz",
   "unterlage": "Offene Mängellisten / behördliche Auflagen",
   "wofuer": "Nacharbeit, Priorisierung",
-  "quelle": "Verwaltung"
+  "quelle": "Verwaltung",
+  "was": "Liste der noch nicht behobenen Mängel aus Prüfungen und Begehungen sowie Auflagen von Behörden, z. B. aus einer Brandverhütungsschau.",
+  "wo": "Hausverwaltung, Mängelteil der Prüfberichte, Schriftverkehr mit Behörden.",
+  "fehlt": "Aus den letzten Prüfberichten selbst zusammenstellen; bei der Gemeinde bzw. Feuerwehr nach dem letzten Bericht einer Brandverhütungsschau fragen, falls das Gebäude dazu gehört.",
+  "vorher": false
  },
  {
   "kat": "Pläne",
   "unterlage": "Grundrisspläne mit Raumnummern (aktueller Stand)",
   "wofuer": "Raum-Nr. für die Erfassung; Raumnummern vorab festlegen",
-  "quelle": "Eigentümer / CAFM"
+  "quelle": "Eigentümer / CAFM",
+  "was": "Pläne jedes Geschosses mit Raumnummern und Raumbezeichnungen.",
+  "wo": "Hausverwaltung, Facility Management, CAFM-System, Architekt; oft als PDF.",
+  "fehlt": "Beim Eigentümer oder Architekten anfragen. Notlösung: Fluchtpläne abfotografieren und Raumnummern von den Türschildern übernehmen. Raumnummern mit dem CAFM abstimmen.",
+  "vorher": true
  },
  {
   "kat": "Pläne",
   "unterlage": "Revisions-/Bestandspläne TGA (Strangschemata)",
   "wofuer": "Anlagen finden, Zuordnung",
-  "quelle": "Planer / Errichter"
+  "quelle": "Planer / Errichter",
+  "was": "Pläne der tatsächlich eingebauten Haustechnik: Leitungsverlauf, Lage von Armaturen, Schächten und Brandschutzklappen. Strangschemata zeigen die Leitungen eines Gewerks von unten nach oben.",
+  "wo": "Revisionsunterlagen aus der Bauzeit (meist ein Ordner je Gewerk), Hausverwaltung, Planungsbüro.",
+  "fehlt": "Beim TGA-Planer oder bei den Firmen anfragen, die gebaut haben. Fehlen sie ganz, nach und nach durch die Bestandsaufnahme ergänzen.",
+  "vorher": false
  },
  {
   "kat": "Pläne",
   "unterlage": "Anlagenschemata Heizung / Lüftung / Kälte",
   "wofuer": "Komponenten vollständig erfassen",
-  "quelle": "Errichter / Wartungsfirma"
+  "quelle": "Errichter / Wartungsfirma",
+  "was": "Vereinfachte Zeichnung einer Anlage mit allen Bauteilen (Pumpen, Ventile, Fühler, Wärmetauscher).",
+  "wo": "Revisionsunterlagen, Innenseite der Schaltschranktür, Bildschirm der Gebäudeleittechnik, Wartungsfirma.",
+  "fehlt": "Wartungsfirma oder GLT-Firma fragen; Anlagenbilder auf dem GLT-Bildschirm abfotografieren.",
+  "vorher": false
  },
  {
   "kat": "Pläne",
   "unterlage": "Elektro: Übersichtsschaltplan NSHV / UV",
   "wofuer": "Alle Verteilungen erfassen",
-  "quelle": "Errichter"
+  "quelle": "Errichter",
+  "was": "Zeigt den Aufbau der Stromversorgung: Hausanschluss → Hauptverteilung → alle Unterverteilungen mit ihren Bezeichnungen.",
+  "wo": "In der Plantasche der Schaltschranktür (NSHV/UV), Revisionsunterlagen Elektro.",
+  "fehlt": "Beim Elektrofachbetrieb, der die Anlage betreut, oder beim Elektroplaner anfragen.",
+  "vorher": false
  },
  {
   "kat": "Pläne",
   "unterlage": "BMA: Meldergruppenverzeichnis / Laufkarten",
   "wofuer": "Sammelpositionen je Meldergruppe",
-  "quelle": "Errichter BMA"
+  "quelle": "Errichter BMA",
+  "was": "Liste aller Meldergruppen und Melder mit Standort. Laufkarten zeigen der Feuerwehr den Weg zu jedem Melderbereich.",
+  "wo": "Im Laufkartendepot direkt bei der Brandmelderzentrale.",
+  "fehlt": "Beim Errichter bzw. der Wartungsfirma der Brandmeldeanlage anfragen.",
+  "vorher": false
  },
  {
   "kat": "Pläne",
   "unterlage": "GLT: Datenpunkt- / Anlagenliste",
   "wofuer": "Abgleich Anlagenbestand",
-  "quelle": "GLT-Errichter"
+  "quelle": "GLT-Errichter",
+  "was": "Liste aller Anlagen und Messpunkte, die die Gebäudeleittechnik überwacht (Temperaturen, Störmeldungen, Schaltbefehle).",
+  "wo": "GLT-Rechner, Revisionsunterlagen MSR.",
+  "fehlt": "Bei der GLT- bzw. MSR-Firma anfragen; oft lässt sich die Liste direkt aus dem GLT-Programm exportieren.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Prüfbücher (Aufzug, BMA, RWA, Sicherheitsbeleuchtung, Feststellanlagen)",
   "wofuer": "Spalte 'Prüfbuch vorhanden', letzte Prüfung",
-  "quelle": "vor Ort / Dienstleister"
+  "quelle": "vor Ort / Dienstleister",
+  "was": "Bücher oder Ordner, in die jede Prüfung und Wartung einer Anlage eingetragen wird (Datum, Prüfer, Ergebnis).",
+  "wo": "Meist direkt an der Anlage: Aufzugssteuerung, Brandmelderzentrale, RWA-Zentrale, Batterieraum.",
+  "fehlt": "Neues Prüfbuch anlegen (Vordrucke gibt es vom Hersteller oder der Wartungsfirma) und vorhandene Prüfberichte einheften.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Wartungsprotokolle der letzten 2 Jahre (alle Gewerke)",
   "wofuer": "Letzte Prüfung, Dienstleister, Mängel",
-  "quelle": "Dienstleister"
+  "quelle": "Dienstleister",
+  "was": "Berichte der Wartungsfirmen zu jedem Einsatz: was geprüft oder getauscht wurde, Messwerte, Mängel.",
+  "wo": "Hausverwaltung, Anlagen zu Rechnungen, Kundenportal der Wartungsfirma.",
+  "fehlt": "Bei der jeweiligen Wartungsfirma Kopien anfordern.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "DGUV V3-Prüfprotokolle ortsfeste Anlagen",
   "wofuer": "Verteilungen, Fristen",
-  "quelle": "Elektrofachbetrieb"
+  "quelle": "Elektrofachbetrieb",
+  "was": "Protokolle der Prüfung der elektrischen Anlage (Verteilungen, Installation) mit Messwerten und Mängeln.",
+  "wo": "Hausverwaltung, Elektrofachbetrieb; Prüfaufkleber an den Verteilern zeigen das Datum.",
+  "fehlt": "Beim Elektrofachbetrieb anfordern. Gibt es keine Prüfung, eine beauftragen.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Blitzschutz-Prüfbericht",
   "wofuer": "Schutzklasse, Frist",
-  "quelle": "Elektrofachbetrieb"
+  "quelle": "Elektrofachbetrieb",
+  "was": "Bericht über Sicht- und Messprüfung der Blitzschutzanlage mit Schutzklasse, Messwerten und Mängeln.",
+  "wo": "Hausverwaltung, Blitzschutz- oder Elektrofirma.",
+  "fehlt": "Bei der Blitzschutz- bzw. Elektrofirma anfragen. Gibt es keinen, Prüfung beauftragen.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Schornsteinfeger: Feuerstättenbescheid, Messprotokolle",
   "wofuer": "Feuerstätten vollständig",
-  "quelle": "Bezirksschornsteinfeger"
+  "quelle": "Bezirksschornsteinfeger",
+  "was": "Der Feuerstättenbescheid legt fest, welche Arbeiten der Schornsteinfeger wann an welcher Feuerstätte macht. Messprotokolle enthalten die Abgaswerte der Kessel.",
+  "wo": "Eigentümer bzw. Hausverwaltung, manchmal im Heizraum.",
+  "fehlt": "Beim zuständigen bevollmächtigten Bezirksschornsteinfeger anfragen. Wer zuständig ist, sagt dir die Gemeinde oder die Schornsteinfeger-Innung.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Trinkwasser: Legionellenbefunde, Gefährdungsanalyse",
   "wofuer": "Großanlage ja/nein, Probenahmestellen",
-  "quelle": "Labor / Verwaltung"
+  "quelle": "Labor / Verwaltung",
+  "was": "Laborbefunde der Legionellenuntersuchung. Wurde der Wert überschritten, gibt es zusätzlich eine Gefährdungsanalyse mit Maßnahmen.",
+  "wo": "Hausverwaltung, beauftragtes Labor.",
+  "fehlt": "Beim Labor Kopien anfordern. Zuerst klären, ob überhaupt eine Untersuchungspflicht besteht (große Warmwasseranlage mit Duschen). Auskunft gibt auch das Gesundheitsamt.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "RLT: Hygieneinspektionen VDI 6022",
   "wofuer": "Anlagenliste RLT",
-  "quelle": "Wartungsfirma"
+  "quelle": "Wartungsfirma",
+  "was": "Bericht über den hygienischen Zustand der Lüftungsanlage (Sichtprüfung, Proben, Filter).",
+  "wo": "Wartungsfirma Lüftung, Hausverwaltung.",
+  "fehlt": "Bei der Wartungsfirma anfragen. Gibt es keinen Bericht, Inspektion bei einem Fachbetrieb mit VDI-6022-Schulung beauftragen.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Kälteanlagen: Logbuch / Dichtheitskontrollen F-Gase",
   "wofuer": "Kältemittel, Füllmenge",
-  "quelle": "Kältefachbetrieb"
+  "quelle": "Kältefachbetrieb",
+  "was": "Buch je Kälte- oder Klimaanlage mit Kältemittel, Füllmenge, Dichtheitskontrollen, Nachfüllungen und Reparaturen.",
+  "wo": "An der Anlage bzw. in der Kältezentrale, beim Kältefachbetrieb.",
+  "fehlt": "Beim Kältefachbetrieb anfragen. Kältemittel und Füllmenge stehen auf dem Typenschild.",
+  "vorher": false
  },
  {
   "kat": "Prüfungen & Nachweise",
   "unterlage": "Abscheider: Wartung / Generalinspektion",
   "wofuer": "Abscheider vollständig",
-  "quelle": "Entsorger / Fachbetrieb"
+  "quelle": "Entsorger / Fachbetrieb",
+  "was": "Protokolle über Leerung und Wartung sowie die Generalinspektion (alle 5 Jahre) mit Dichtheitsprüfung.",
+  "wo": "Hausverwaltung, Entsorgungsfirma.",
+  "fehlt": "Beim Entsorger bzw. Fachbetrieb anfragen.",
+  "vorher": false
  },
  {
   "kat": "Verträge & Organisation",
   "unterlage": "Wartungs- und Prüfverträge inkl. Anlagenlisten",
   "wofuer": "Vorbefüllung der Anlagenliste, Spalte 'Wartungsvertrag'",
-  "quelle": "Verwaltung / Einkauf"
+  "quelle": "Verwaltung / Einkauf",
+  "was": "Verträge mit Firmen über regelmäßige Wartung und Prüfung. Im Anhang steht oft eine Liste aller betreuten Anlagen mit Intervall – ideal zum Vorab-Eintragen.",
+  "wo": "Hausverwaltung, Einkauf, Buchhaltung.",
+  "fehlt": "Rechnungen der letzten 2 Jahre durchsehen: Jede Firma, die regelmäßig abrechnet, hat vermutlich einen Vertrag. Dort eine Kopie samt Anlagenliste anfordern.",
+  "vorher": true
  },
  {
   "kat": "Verträge & Organisation",
   "unterlage": "Dienstleister- und Notdienstliste",
   "wofuer": "Spalten 'Prüfer' / 'Wartungsfirma'",
-  "quelle": "Verwaltung"
+  "quelle": "Verwaltung",
+  "was": "Liste aller Firmen mit Ansprechpartner, Telefon, Notdienstnummer und Zuständigkeit.",
+  "wo": "Hausverwaltung, Aushang beim Hausmeister, Aufkleber an den Anlagen.",
+  "fehlt": "Selbst erstellen aus Verträgen, Rechnungen und den Firmenaufklebern an den Anlagen.",
+  "vorher": false
  },
  {
   "kat": "Verträge & Organisation",
   "unterlage": "Pflichtenübertragung / Betreiberorganisation",
   "wofuer": "Wer ist wofür verantwortlich",
-  "quelle": "Eigentümer / Betreiber"
+  "quelle": "Eigentümer / Betreiber",
+  "was": "Schriftliche Festlegung, wer welche Betreiberpflichten übernimmt (Eigentümer → Verwaltung → Dienstleister), mit Unterschrift.",
+  "wo": "Eigentümer, Hausverwaltung, Leistungsbeschreibung im Dienstleistungsvertrag.",
+  "fehlt": "Mit deinem Vorgesetzten bzw. dem Eigentümer klären und schriftlich festhalten. Wichtig auch für deine eigene Haftung.",
+  "vorher": false
  },
  {
   "kat": "Verträge & Organisation",
   "unterlage": "Schlüssel / Zutritt Technikräume und Dach, Begleitung Haustechnik",
   "wofuer": "Begehung ohne Wartezeiten",
-  "quelle": "Haustechnik"
+  "quelle": "Haustechnik",
+  "was": "Keine Unterlage, sondern Organisation: Wer hat Schlüssel zu Technikräumen und Dach, wer begleitet dich bei der Begehung?",
+  "wo": "Hausmeister, Haustechnik, Schließplan.",
+  "fehlt": "Termin mit Hausmeister oder Haustechnik vereinbaren.",
+  "vorher": true
  },
  {
   "kat": "Anlagendokumentation",
   "unterlage": "Bedienungs-, Wartungs- und Betriebsanleitungen",
   "wofuer": "Spalte 'Anleitung vorhanden'",
-  "quelle": "vor Ort / Errichter"
+  "quelle": "vor Ort / Errichter",
+  "was": "Herstellerunterlagen zu Bedienung, Wartung und Ersatzteilen.",
+  "wo": "Revisionsordner, im Schaltschrank oder direkt an der Anlage.",
+  "fehlt": "Beim Hersteller als PDF herunterladen. Hersteller und Typ stehen auf dem Typenschild; in der App hilft der Knopf „Hersteller + Typ im Netz suchen“.",
+  "vorher": false
  },
  {
   "kat": "Anlagendokumentation",
   "unterlage": "Abnahme- und Inbetriebnahmeprotokolle",
   "wofuer": "Baujahr, Kenndaten",
-  "quelle": "Errichter / Planer"
+  "quelle": "Errichter / Planer",
+  "was": "Protokolle bei Fertigstellung: Prüfungen, Einstellwerte und Mängel bei der Übergabe.",
+  "wo": "Revisionsunterlagen aus der Bauzeit, Bauherr.",
+  "fehlt": "Beim Planer oder der ausführenden Firma anfragen. Oft nicht mehr zu beschaffen – dann in der Bemerkung vermerken.",
+  "vorher": false
  },
  {
   "kat": "Anlagendokumentation",
   "unterlage": "Vorhandene Anlagen-/Inventarlisten (Altdaten, Excel, altes CAFM)",
   "wofuer": "Vorbefüllung, Abgleich",
-  "quelle": "Verwaltung"
+  "quelle": "Verwaltung",
+  "was": "Listen aus einer früheren Bestandsaufnahme oder einem alten CAFM-System.",
+  "wo": "Hausverwaltung, Vorgänger, IT.",
+  "fehlt": "Nicht schlimm – dann beginnst du mit der Begehung bei null.",
+  "vorher": false
  },
  {
   "kat": "Anlagendokumentation",
   "unterlage": "Zählerliste Strom / Gas / Wasser / Wärme",
   "wofuer": "Zähler vollständig, Eichfristen",
-  "quelle": "Verwaltung / Versorger"
+  "quelle": "Verwaltung / Versorger",
+  "was": "Liste aller Zähler mit Zählernummer, Ort, Medium und Zweck (Hauptzähler des Versorgers, Unterzähler).",
+  "wo": "Hausverwaltung, Nebenkostenabrechnung, Rechnungen der Energieversorger.",
+  "fehlt": "Hauptzählernummern stehen auf den Versorgerrechnungen; Unterzähler bei der Begehung aufnehmen.",
+  "vorher": false
  },
  {
   "kat": "Arbeitsschutz",
   "unterlage": "Gefährdungsbeurteilungen (Anlagenbetrieb, Arbeiten auf dem Dach)",
   "wofuer": "Prüffristen nach GBU, sichere Begehung",
-  "quelle": "Betreiber / Fachkraft für Arbeitssicherheit"
+  "quelle": "Betreiber / Fachkraft für Arbeitssicherheit",
+  "was": "Beurteilung der Gefahren bei Arbeiten (z. B. auf dem Dach, in Elektroräumen) mit den nötigen Schutzmaßnahmen.",
+  "wo": "Arbeitgeber, Fachkraft für Arbeitssicherheit.",
+  "fehlt": "Die Fachkraft für Arbeitssicherheit deines Arbeitgebers ansprechen – auch für deine eigene Sicherheit bei der Begehung.",
+  "vorher": true
  },
  {
   "kat": "Arbeitsschutz",
   "unterlage": "Explosionsschutzdokument (falls zutreffend)",
   "wofuer": "Ex-Bereiche kennen",
-  "quelle": "Betreiber"
+  "quelle": "Betreiber",
+  "was": "Pflichtdokument, wenn explosionsfähige Atmosphäre entstehen kann (z. B. Flüssiggas- oder Lösemittellager); zeigt die Ex-Zonen.",
+  "wo": "Betreiber bzw. Arbeitgeber, Fachkraft für Arbeitssicherheit.",
+  "fehlt": "Erst klären, ob es überhaupt nötig ist – in reinen Bürogebäuden meist nicht.",
+  "vorher": false
  },
  {
   "kat": "CAFM",
   "unterlage": "CAFM-Importvorlage und Stammdatenkataloge (Liegenschaft, Gebäude, Geschoss, Raum, Anlagenklassen)",
   "wofuer": "Spalten und Kataloge der Vorlage angleichen",
-  "quelle": "CAFM-Administrator"
+  "quelle": "CAFM-Administrator",
+  "was": "Vorgabe des CAFM-Systems, welche Spalten und Werte beim Import erwartet werden (z. B. Gebäude- und Raumnummern, Anlagenklassen).",
+  "wo": "CAFM-Administrator, FM-Abteilung oder IT.",
+  "fehlt": "Beim CAFM-Verantwortlichen anfragen – früh, denn danach richten sich die Spalten der Vorlage.",
+  "vorher": true
  }
 ];
 
