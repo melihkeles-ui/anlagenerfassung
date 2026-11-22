@@ -3,7 +3,7 @@ import * as db from './db.js';
 import { makeZip, readZip } from './zip.js';
 import { buildXlsx, readXlsxSheet, STYLE, serialToIso } from './xlsx.js';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.1.1';
 const COL = Object.fromEntries(COLUMNS.map((c) => [c.key, c]));
 const OPTIONS = { jnk: JNK, doku: DOKU, zustand: ZUSTAND };
 const SECTIONS = [
@@ -35,6 +35,7 @@ const S = {
   untouched: new Set(),
   returnTo: '#/liste',
   busy: false,
+  focusPhotos: false,
 };
 let installEvt = null;
 
@@ -54,6 +55,19 @@ const baseName = (r) => (r.id && r.id.trim() ? safeName(r.id) : `OHNE-ID_${r.uid
 const fotoNames = (r) => Array.from({ length: r.fotoCount || 0 }, (_, i) => `${baseName(r)}_${pad2(i + 1)}.jpg`);
 const fileTag = () => `${safeName(S.settings.gebaeude || 'Export')}_${today()}`;
 const ckKey = (bereich, it) => `${bereich}|${it.anlage}`;
+const imgSearchUrl = (q) => 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(q);
+const webSearchUrl = (q) => 'https://www.google.com/search?q=' + encodeURIComponent(q);
+
+function downloadFile(file) {
+  const url = URL.createObjectURL(file);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = file.name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 120000);
+}
 
 const missing = (r) => COLUMNS.filter((c) => c.pflicht && !String(r[c.key] ?? '').trim());
 const hasKlaeren = (r) => ['pruefpflichtig', 'wartungspflichtig', 'wartungsvertrag'].some((k) => r[k] === 'klären');
@@ -296,7 +310,7 @@ function renderList() {
     </div>
     <div class="summary" id="summary"></div>
     <div id="items"></div>
-    <button class="btn fab" id="new">+ Neue Anlage</button>`;
+    <div class="fabs"><button class="btn ghost" id="unknown">Unbekanntes Teil</button><button class="btn" id="new">+ Neue Anlage</button></div>`;
   renderItems();
   const m = main();
   m.oninput = (e) => {
@@ -315,6 +329,11 @@ function renderList() {
     } else if (e.target.id === 'new') {
       S.returnTo = '#/liste';
       const r = await newAnlage();
+      location.hash = '#/anlage/' + encodeURIComponent(r.uid);
+    } else if (e.target.id === 'unknown') {
+      S.returnTo = '#/liste';
+      const r = await newAnlage({ bezeichnung: 'Unbekanntes Teil', anlagenart: 'unbekannt', pruefpflichtig: 'klären', wartungspflichtig: 'klären' });
+      S.focusPhotos = true;
       location.hash = '#/anlage/' + encodeURIComponent(r.uid);
     }
   };
@@ -346,7 +365,33 @@ function anlagenartHtml(r) {
   return `<select id="f_anlagenart" data-art><option value="">${r.gewerk ? '– wählen –' : '– zuerst Gewerk wählen –'}</option>`
     + arten.map((a) => `<option${a === v ? ' selected' : ''}>${h(a)}</option>`).join('')
     + `<option value="__other"${other ? ' selected' : ''}>Andere (frei eingeben) …</option></select>`
-    + `<input type="text" class="sub" id="f_anlagenart_other" data-k="anlagenart" value="${other ? h(v) : ''}" placeholder="Anlagenart eingeben" autocomplete="off"${other ? '' : ' hidden'}>`;
+    + `<input type="text" class="sub" id="f_anlagenart_other" data-k="anlagenart" value="${other ? h(v) : ''}" placeholder="Anlagenart eingeben" autocomplete="off"${other ? '' : ' hidden'}>`
+    + `<a id="artimg" class="small-link" target="_blank" rel="noopener"${v && v !== 'unbekannt' ? ` href="${h(imgSearchUrl(v))}"` : ' hidden'}>Beispielbilder: ${h(v)}</a>`;
+}
+
+function updateArtLink() {
+  const r = S.current;
+  const a = $('#artimg');
+  if (!r || !a) return;
+  const v = (r.anlagenart || '').trim();
+  a.hidden = !v || v === 'unbekannt';
+  if (!a.hidden) { a.href = imgSearchUrl(v); a.textContent = `Beispielbilder: ${v}`; }
+}
+
+function webSearchHtml(r) {
+  return `<div class="sub"><a id="websearch" class="btn ghost small" target="_blank" rel="noopener" href="${h(webSearchUrl(webQuery(r)))}"${webQuery(r) ? '' : ' hidden'}>Hersteller + Typ im Netz suchen</a>`
+    + '<p class="hint">Sucht nach Datenblatt und Anleitung (Internet nötig).</p></div>';
+}
+function webQuery(r) {
+  return [r.hersteller, r.typ].map((x) => (x || '').trim()).filter(Boolean).join(' ');
+}
+function updateWebSearch() {
+  const r = S.current;
+  const a = $('#websearch');
+  if (!r || !a) return;
+  const q = webQuery(r);
+  a.hidden = !q;
+  if (q) a.href = webSearchUrl(q);
 }
 
 function fieldHtml(c, r) {
@@ -406,6 +451,7 @@ function photoSection() {
       <label class="btn ghost">Aus Galerie<input type="file" accept="image/*" multiple data-photo class="vh"></label>
     </div>
     <p class="hint">1. Foto = Gesamtansicht, 2. Foto = Typenschild, weitere = Details/Mängel. Beim Export heißen die Dateien Anlagen-ID_01.jpg, _02.jpg …</p>
+    <p class="hint">Unbekanntes Teil? Auf das Foto tippen → „Was ist das?“ sucht mit Google Lens im Netz.</p>
   </section>`;
 }
 
@@ -455,7 +501,7 @@ async function renderForm(uid) {
   main().innerHTML = `<div id="status"></div>`
     + SECTIONS.map(([title, keys]) => (title === 'FOTOS'
       ? photoSection()
-      : `<section class="card"><h2>${h(title)}</h2>${keys.map((k) => fieldHtml(COL[k], r)).join('')}</section>`)).join('')
+      : `<section class="card"><h2>${h(title)}</h2>${keys.map((k) => fieldHtml(COL[k], r)).join('')}${title === 'Typenschild' ? webSearchHtml(r) : ''}</section>`)).join('')
     + `<div class="actions">
         <button class="btn block" id="done">Fertig</button>
         <button class="btn ghost block" id="next">Fertig + nächste Anlage im selben Raum</button>
@@ -465,6 +511,12 @@ async function renderForm(uid) {
   updateStatus();
   updateIdWarn();
   renderPhotos();
+  if (S.focusPhotos) {
+    S.focusPhotos = false;
+    const ph = $('#photos');
+    if (ph) ph.closest('.card').scrollIntoView({ block: 'start' });
+    toast('Foto aufnehmen, dann auf das Foto tippen → „Was ist das?“', 5000);
+  }
 
   const m = main();
   m.oninput = (e) => {
@@ -477,6 +529,8 @@ async function renderForm(uid) {
     scheduleSave(r);
     if (k === 'id') { setTitle(el.value || 'Neue Anlage'); updateIdWarn(); }
     if (k === 'gebaeude') refreshId(r);
+    if (k === 'hersteller' || k === 'typ') updateWebSearch();
+    if (k === 'anlagenart') updateArtLink();
     updateStatus();
   };
   m.onchange = (e) => {
@@ -498,6 +552,7 @@ async function renderForm(uid) {
         other.value = '';
         r.anlagenart = el.value;
       }
+      updateArtLink();
       touched(r);
       scheduleSave(r);
       updateStatus();
@@ -687,8 +742,17 @@ async function openPhoto(fid) {
   if (!f) return;
   const u = URL.createObjectURL(new Blob([f.data], { type: 'image/jpeg' }));
   modalUrls.push(u);
-  const m = openModal(`<h3>${h(baseName(r))}_${pad2(i + 1)}.jpg</h3><img src="${u}" alt="">
+  const fileName = `${baseName(r)}_${pad2(i + 1)}.jpg`;
+  const photoFile = new File([f.data], fileName, { type: 'image/jpeg' });
+  let canShare = false;
+  try { canShare = !!(navigator.canShare && navigator.canShare({ files: [photoFile] })); } catch (e) { canShare = false; }
+  const m = openModal(`<h3>${h(fileName)}</h3><img src="${u}" alt="">
     <p class="hint">${f.w} × ${f.h} px · ${fmtBytes(f.data.byteLength)}</p>
+    <button class="btn block sub" data-act="lens">Was ist das? Foto im Netz suchen</button>
+    <p class="hint">${canShare
+      ? 'Im Teilen-Menü „Google“ bzw. „Google Lens“ wählen (Internet nötig). Erscheint es nicht: Foto sichern und in der Google-App auf das Kamera-Symbol tippen.'
+      : 'Das Foto wird gespeichert. Danach in der Google-App auf das Kamera-Symbol (Lens) tippen und das Foto auswählen.'}
+      Alternativ das Foto in Claude hochladen und fragen, was es ist.</p>
     <div class="actions">
       ${i > 0 ? '<button class="btn ghost" data-act="left">Eine Position nach vorne</button>' : ''}
       <button class="btn danger" data-act="del">Foto löschen</button>
@@ -697,6 +761,19 @@ async function openPhoto(fid) {
   m.onclick = async (e) => {
     const act = e.target.dataset && e.target.dataset.act;
     if (!act) return;
+    if (act === 'lens') {
+      if (canShare) {
+        try {
+          await navigator.share({ files: [photoFile], title: 'Was ist das?' });
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+      downloadFile(photoFile);
+      toast('Foto gespeichert. Jetzt in der Google-App auf das Kamera-Symbol tippen und das Foto auswählen.', 6000);
+      return;
+    }
     if (act === 'close') return closeModal();
     if (act === 'del') {
       if (!confirm('Foto löschen?')) return;
@@ -721,7 +798,12 @@ function ckItemHtml(b, it, bi, ii) {
   return `<div class="ck" data-ck="${bi}:${ii}">
     <div class="ck-t">${h(it.anlage)}</div>
     <div class="ck-m">KG ${h(it.kg)} · ${h(it.erfassung)}</div>
-    ${it.hinweis ? `<div class="ck-h">${h(it.hinweis)}</div>` : ''}
+    <details class="help"><summary>So erkennst du es</summary>
+      <p><b>Aussehen:</b> ${h(it.erkennen)}</p>
+      <p><b>Wo suchen:</b> ${h(it.wo)}</p>
+      ${it.hinweis ? `<p><b>Prüfung/Wartung (typisch):</b> ${h(it.hinweis)}</p>` : ''}
+      <a class="btn ghost small" target="_blank" rel="noopener" href="${h(imgSearchUrl(it.suche))}">Beispielbilder ansehen</a>
+    </details>
     <div class="ck-row"><span class="lbl">Vorhanden:</span><div class="pills" data-ckf="vorhanden">${JNK.map((o) => `<button type="button" class="pill${st.vorhanden === o ? ' on' : ''}" data-val="${h(o)}">${h(o)}</button>`).join('')}</div></div>
     <div class="ck-row"><button type="button" class="toggle${st.erfasst === 'ja' ? ' on' : ''}" data-ckf="erfasst">${st.erfasst === 'ja' ? 'Erfasst ✓' : 'Erfasst'}</button>
       <button type="button" class="btn ghost small" data-cknew>+ Anlage erfassen</button></div>
@@ -755,9 +837,10 @@ function renderCheck() {
   setTitle('Begehungscheckliste');
   main().innerHTML = `<div class="card"><div class="kv"><span>Geprüfte Punkte</span><b id="cktotal"></b></div>
       <div class="progress"><div id="ckbar"></div></div>
-      <p class="hint">Je Punkt „Vorhanden“ setzen. „+ Anlage erfassen“ öffnet das Formular mit vorgewähltem Gewerk.</p></div>`
+      <p class="hint">Bereich aufklappen und dem Rundgang-Tipp folgen. „So erkennst du es“ zeigt Aussehen, Ort und Beispielbilder. „+ Anlage erfassen“ öffnet das Formular mit vorgewähltem Gewerk.</p></div>`
     + CHECKLISTE.map((b, bi) => `<details class="group" data-group="${bi}"${S.openGroup === bi ? ' open' : ''}>
         <summary>${h(b.bereich)}<span class="cnt"></span></summary>
+        <div class="tipp"><b>Rundgang:</b> ${h(b.rundgang)}</div>
         ${b.items.map((it, ii) => ckItemHtml(b, it, bi, ii)).join('')}</details>`).join('');
   checkCounts();
   document.querySelectorAll('details.group').forEach((d) => {
@@ -915,15 +998,7 @@ function offerFiles(files, note, onDone) {
       }
     }
     if (t.dataset.dl !== undefined) {
-      const it = items[+t.dataset.dl];
-      const url = URL.createObjectURL(it.file);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = it.file.name;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 120000);
+      downloadFile(items[+t.dataset.dl].file);
       if (onDone) onDone();
     }
   };
@@ -1321,7 +1396,13 @@ async function init() {
   }
   window.addEventListener('hashchange', route);
   route();
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  if ('serviceWorker' in navigator) {
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (hadController) toast('Neue App-Version geladen. Bitte die App einmal schließen und neu öffnen.', 8000);
+    });
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).catch(() => {});
+  }
   try {
     if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) await navigator.storage.persist();
   } catch (e) { /* nicht unterstützt */ }

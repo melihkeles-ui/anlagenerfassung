@@ -1,0 +1,2 @@
+TGA Anlagenerfassung - Version 1.1.1
+Wenn diese Datei auf GitHub direkt neben index.html liegt, ist die neue Version richtig hochgeladen.

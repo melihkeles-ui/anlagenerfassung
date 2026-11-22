@@ -12,6 +12,10 @@ mit denselben Spalten wie die Erfassungsvorlage (Blatt „Anlagen“, importfäh
 - Fotos direkt mit der Kamera; beim Export heißen sie automatisch `Anlagen-ID_01.jpg`, `_02.jpg` …
 - „Fertig + nächste Anlage im selben Raum“ und „Duplizieren“ für schnelle Erfassung
 - Begehungscheckliste (112 Punkte, 9 Bereiche) und Unterlagen-Checkliste (31 Punkte)
+- Erkennungshilfe für Einsteiger: zu jedem Checklistenpunkt „So erkennst du es“ (Aussehen, wo suchen,
+  Beispielbilder) und je Bereich ein Rundgang-Tipp
+- „Was ist das?“: Foto eines unbekannten Teils an Google Lens übergeben; Button „Unbekanntes Teil“ in der Liste
+- „Hersteller + Typ im Netz suchen“ für Datenblätter und Anleitungen
 - Export: Excel (.xlsx), CSV, Fotos als ZIP
 - Datensicherung und Wiederherstellung (auch für den Umzug auf ein anderes Gerät)
 - Import der Excel-Erfassungsvorlage (z. B. am PC vorab eingetragene Anlagen)
@@ -71,6 +75,14 @@ Geschosse lassen sich direkt in der App unter Export → Einstellungen ändern.
 Nach jeder Änderung an den Dateien in `sw.js` die Versionsnummer in `CACHE` erhöhen
 (z. B. `tga-anlagen-v1.0.1`), damit die Handys die neue Version laden.
 Die neue Version ist nach dem zweiten Start der App aktiv.
+
+## Neue Version einspielen
+
+Im Repository auf **Add file → Upload files** klicken und die geänderten Dateien hochladen
+(gleiche Namen überschreiben die alten), dann **Commit changes**. Die Handys laden die neue Version
+beim nächsten Start im Hintergrund; ab dem zweiten Start ist sie aktiv.
+
+Bildersuche, Websuche und „Was ist das?“ brauchen Internet. Alles andere funktioniert offline.
 
 ## Voraussetzungen
 

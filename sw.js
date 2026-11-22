@@ -1,6 +1,6 @@
 // Service Worker: hält die App offline verfügbar.
 // Nach jeder Änderung an den App-Dateien die Versionsnummer erhöhen.
-const CACHE = 'tga-anlagen-v1.0.0';
+const CACHE = 'tga-anlagen-v1.1.1';
 const FILES = [
   './',
   './index.html',
@@ -18,7 +18,12 @@ const FILES = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));
+  // cache: 'reload' umgeht den Browser-Cache, damit wirklich die neuen Dateien geladen werden
+  event.waitUntil(
+    caches.open(CACHE)
+      .then((c) => c.addAll(FILES.map((f) => new Request(f, { cache: 'reload' }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -37,7 +42,7 @@ self.addEventListener('fetch', (event) => {
     caches.open(CACHE).then(async (cache) => {
       const cached = await cache.match(req, { ignoreSearch: true })
         || (req.mode === 'navigate' ? await cache.match('./index.html') : undefined);
-      const network = fetch(req)
+      const network = fetch(req, { cache: 'no-cache' })
         .then((res) => {
           if (res && res.ok) cache.put(req, res.clone());
           return res;
